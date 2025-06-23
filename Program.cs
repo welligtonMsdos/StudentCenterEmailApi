@@ -1,6 +1,7 @@
 
 using StudentCenterEmailApi.src.Application.Interfaces;
 using StudentCenterEmailApi.src.Application.Services;
+using StudentCenterEmailApi.src.RabbitMqClient;
 
 namespace StudentCenterEmailApi
 {
@@ -17,7 +18,11 @@ namespace StudentCenterEmailApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<IEmailService, EmailService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
+            builder.Services.AddHostedService<RabbitMqSubscriber>();
+
+            builder.Services.AddSingleton<IProcessEvent, ProcessEvent>();
 
             var app = builder.Build();
 
