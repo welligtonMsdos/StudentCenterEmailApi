@@ -24,6 +24,11 @@ namespace StudentCenterEmailApi
 
             builder.Services.AddSingleton<IProcessEvent, ProcessEvent>();
 
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.ListenAnyIP(80);
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
