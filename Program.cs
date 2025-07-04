@@ -16,6 +16,7 @@ namespace StudentCenterEmailApi
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IEmailService, EmailService>();
@@ -23,6 +24,11 @@ namespace StudentCenterEmailApi
             builder.Services.AddHostedService<RabbitMqSubscriber>();
 
             builder.Services.AddSingleton<IProcessEvent, ProcessEvent>();
+
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.ListenAnyIP(80);
+            });
 
             var app = builder.Build();
 
@@ -36,7 +42,6 @@ namespace StudentCenterEmailApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

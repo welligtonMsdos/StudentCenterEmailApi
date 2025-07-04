@@ -1,0 +1,26 @@
+﻿version: "3.9"
+
+services:
+  student-center-web:
+    container_name: student-center-web-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5004:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RabbitMQHost=rabbit
+      - RabbitMQPort=5672
+      - RabbitMQUser=guest
+      - RabbitMQPassword=guest
+    volumes:
+      - ./dataprotection-keys:/home/app/.aspnet/DataProtection-Keys     
+    networks:
+      - student-center-net
+
+networks:
+  student-center-net:
+    external: true
+
+
