@@ -26,11 +26,29 @@ public class RabbitMqSubscriber : BackgroundService
 
         _channel = _connection.CreateModel();
 
-        _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
+        _queueName = "trigger";
 
-        _queueName = _channel.QueueDeclare().QueueName;
+        _channel.QueueDeclare(
+            queue: _queueName,
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null
+         );
 
-        _channel.QueueBind(queue: _queueName, exchange: "trigger", routingKey: "");
+        _channel.ExchangeDeclare(
+            exchange: "trigger",
+            type: ExchangeType.Fanout,
+            durable: false,
+            autoDelete: false,
+            arguments: null
+        );
+
+        _channel.QueueBind(
+            queue: _queueName,
+            exchange: "trigger",
+            routingKey: ""
+        );
 
         _processEvent = processEvent;
     }

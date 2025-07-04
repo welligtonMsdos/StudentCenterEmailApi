@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using StudentCenterEmailApi.src.Application.DTOs;
+﻿using StudentCenterEmailApi.src.Application.DTOs;
 using StudentCenterEmailApi.src.Application.Interfaces;
 using System.Text.Json;
 

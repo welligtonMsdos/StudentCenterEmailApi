@@ -10,17 +10,17 @@ services:
       - "5004:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - RabbitMQHost=studentcenterservices
+      - RabbitMQHost=rabbit
       - RabbitMQPort=5672
       - RabbitMQUser=guest
       - RabbitMQPassword=guest
     volumes:
       - ./dataprotection-keys:/home/app/.aspnet/DataProtection-Keys     
     networks:
-      - rede-compartilhada
+      - student-center-net
 
 networks:
-  rede-compartilhada:
+  student-center-net:
     external: true
-    name: minha-rede-compartilhada
+
 
